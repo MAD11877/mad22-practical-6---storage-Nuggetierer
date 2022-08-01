@@ -18,7 +18,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public static String followed_COLUMN = "followed";
 
 
-    public static int DATABASE_VERSION = 1;
+    public static int DATABASE_VERSION = 4;
 
     public dbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -29,13 +29,23 @@ public class dbHandler extends SQLiteOpenHelper {
                 + " TEXT," + id_COLUMN + " INT," + followed_COLUMN + " INT" + ")";
 
         db.execSQL(query);
+
+        String add = "INSERT INTO " + users +"(" + name_COLUMN + ", " + desc_COLUMN
+                + ", " + id_COLUMN + ", " + followed_COLUMN + ")"
+                + "VALUES"
+                + "(" + "'name1', " + "'desc1', " + "1, " + "0 " + "),"
+                + "(" + "'name2', " + "'desc2', " + "2, " + "0 " + "),"
+                + "(" + "'name3', " + "'desc3', " + "3, " + "0 " + "),"
+                + "(" + "'name4', " + "'desc4', " + "4, " + "0 " + ")";
+
+        db.execSQL(add);
     }
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + users);
     }
 
     public ArrayList<user> getUsers(){
-        ArrayList<user> queryResult = new ArrayList<user>();
+        ArrayList<user> queryResult = new ArrayList<>();
 
         String query = "SELECT * FROM " + users;
 
@@ -46,17 +56,17 @@ public class dbHandler extends SQLiteOpenHelper {
 
         while(true){
             if(cursor.moveToPosition(counter)){
-                user userhold = new user();
-                userhold.setUserName(cursor.getString(0));
-                userhold.setDescription(cursor.getString(1));
-                userhold.setId(cursor.getInt(2));
+                user currentUser = new user();
+                currentUser.setUserName(cursor.getString(0));
+                currentUser.setDescription(cursor.getString(1));
+                currentUser.setId(cursor.getInt(2));
                 if(cursor.getInt(3) == 0){
-                    userhold.setFollowed(false);
+                    currentUser.setFollowed(false);
                 }
                 else{
-                    userhold.setFollowed(true);
+                    currentUser.setFollowed(true);
                 }
-                queryResult.add(userhold);
+                queryResult.add(currentUser);
                 counter += 1;
             }
             else{

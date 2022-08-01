@@ -39,5 +39,6 @@
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

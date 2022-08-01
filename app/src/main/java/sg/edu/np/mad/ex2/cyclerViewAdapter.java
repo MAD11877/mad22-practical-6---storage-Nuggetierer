@@ -2,6 +2,7 @@ package sg.edu.np.mad.ex2;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +39,7 @@ public class cyclerViewAdapter extends RecyclerView.Adapter<cyclerViewHolder>{
         return new cyclerViewHolder(item);
     }
 
-    public void onBindViewHolder(cyclerViewHolder holder, int position){
+    public void onBindViewHolder(cyclerViewHolder holder, @SuppressLint("RecyclerView") int position){
         String name = data.get(position).getUserName();
         String desc = data.get(position).getDescription();
         boolean follow = data.get(position).isFollowed();
